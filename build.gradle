@@ -8,7 +8,6 @@ plugins {
     id 'jp.classmethod.aws.cloudformation' version '0.41'
 }
 
-version = scmVersion.version
 sourceCompatibility = 8
 
 repositories {
