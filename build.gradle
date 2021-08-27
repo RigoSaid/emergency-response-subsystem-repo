@@ -8,7 +8,6 @@ plugins {
     id 'jp.classmethod.aws.cloudformation' version '0.41'
 }
 
-sourceCompatibility = 8
 
 repositories {
     mavenCentral()
@@ -32,8 +31,8 @@ test {
     useJUnitPlatform()
 }
 
-String dockerHubUsernameProperty = findProperty('dockerHubUsername') ?: 'tkgregory'
-String imageName = "${dockerHubUsernameProperty}/spring-boot-api-example:$version"
+String dockerHubUsernameProperty = findProperty('dockerHubUsername') ?: 'selkarimi'
+String imageName = "${dockerHubUsernameProperty}/emergency-response-subsystem-api:$version"
 
 docker {
     name imageName
@@ -44,7 +43,7 @@ docker {
 dockerRun {
     name project.name
     image imageName
-    ports '8080:8080'
+    ports '8081:8081'
     clean true
 }
 
