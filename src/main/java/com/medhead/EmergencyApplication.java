@@ -2,6 +2,8 @@ package com.medhead;
 
 
 import com.medhead.entity.Call;
+import com.medhead.entity.Location;
+import com.medhead.repository.CallRepository;
 import com.medhead.repository.EmergencyRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +24,7 @@ public class EmergencyApplication {
     }
 
     @Bean
-    public CommandLineRunner sampleData(EmergencyRepository repository) {
+    public CommandLineRunner sampleData(CallRepository repository) {
         return (args) -> {
             repository.save(new Call(new Date(), "Said"));
             repository.save(new Call(new Date(), "Paul"));

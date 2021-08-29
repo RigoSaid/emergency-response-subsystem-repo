@@ -8,18 +8,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+
 public class Emergency {
     @Id
     private Long id;
     @OneToOne
-    private Location location;
+    Location location;
+
+    public Long getId() {
+        return id;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
     @Transient
     private List<Patient> patients = new ArrayList<>();
     enum typeOfEmergency {
         respiratoire , Urologie , sofrologie
-
     }
 
     @Override

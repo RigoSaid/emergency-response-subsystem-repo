@@ -12,14 +12,24 @@ import javax.persistence.Id;
 public class Location {
     @Id
     private Long id;
-    private Long latitude;
-    private Long longitude;
-    private String adress;
+     Long latitude;
+     Long longitude;
+     String adress;
 
     public Location() {
 
     }
+    public Location(Long latitude, Long longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
 
+    }
+    public Location(Long latitude, Long longitude, String adress) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.adress = adress;
+
+    }
     @Override
     public String toString() {
         return "Location{" +

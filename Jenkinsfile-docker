@@ -10,7 +10,7 @@ pipeline {
                 sh './gradlew assemble'
             }
         }
-        stage('Test End to End') {
+        stage('Test integration') {
             steps {
                 sh './gradlew test'
             }
