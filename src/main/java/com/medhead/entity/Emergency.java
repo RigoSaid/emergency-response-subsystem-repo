@@ -13,6 +13,14 @@ import java.util.List;
 public class Emergency {
     @Id
     private Long id;
+    @OneToOne
+    private Location location;
+    @Transient
+    private List<Patient> patients = new ArrayList<>();
+    enum typeOfEmergency {
+        respiratoire , Urologie , sofrologie
+
+    }
 
     @Override
     public String toString() {
@@ -22,10 +30,7 @@ public class Emergency {
                 '}';
     }
 
-    @OneToOne
-    private Location location;
-    @Transient
-    private List<Patient> patients = new ArrayList<>();
+
 
     public Emergency() {
 
