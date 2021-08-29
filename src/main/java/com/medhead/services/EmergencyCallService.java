@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class EmergencyCallService {
 
-    public List<Hospital> findHospital(Location location, ) {
+    public List<Hospital> findHospital(Location location) {
 
         List<Hospital> hospitalsByRecommandation = new ArrayList<>();
         return hospitalsByRecommandation;
