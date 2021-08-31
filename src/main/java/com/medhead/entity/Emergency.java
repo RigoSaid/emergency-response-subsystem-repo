@@ -2,6 +2,7 @@ package com.medhead.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.ApplicationEvent;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +15,18 @@ public class Emergency {
     private Long id;
     @OneToOne
     Location location;
+
+    @Transient
+    private List<Patient> patients = new ArrayList<>();
+
+    public Emergency() {
+
+    }
+
+    public Emergency(Long id, List<Patient> patients) {
+        this.patients = patients;
+        this.location = location;
+    }
 
     public Long getId() {
         return id;
@@ -35,11 +48,6 @@ public class Emergency {
         this.patients = patients;
     }
 
-    @Transient
-    private List<Patient> patients = new ArrayList<>();
-    enum typeOfEmergency {
-        respiratoire , Urologie , sofrologie
-    }
 
     @Override
     public String toString() {
@@ -47,17 +55,6 @@ public class Emergency {
                 "location=" + location +
                 ", patients=" + patients +
                 '}';
-    }
-
-
-
-    public Emergency() {
-
-    }
-
-    public Emergency(Long id, List<Patient> patients) {
-        this.patients = patients;
-        this.location = location;
     }
 
 
