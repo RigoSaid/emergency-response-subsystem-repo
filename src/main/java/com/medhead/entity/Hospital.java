@@ -2,11 +2,13 @@ package com.medhead.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +20,7 @@ public class Hospital {
     @OneToOne(fetch = FetchType.LAZY)
     private Location location;
 
+
     public Hospital() {
 
     }
@@ -27,4 +30,7 @@ public class Hospital {
         this.location = location;
     }
 
+    public List<String> specialityList() {
+        return Arrays.asList("Brûlre", "Cardiologie");
+    }
 }
