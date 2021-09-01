@@ -7,6 +7,7 @@ import com.medhead.entity.Hospital;
 import com.medhead.entity.Location;
 import com.medhead.repository.CallRepository;
 import com.medhead.repository.EmergencyRepository;
+import com.medhead.repository.HospitalRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,13 @@ public class EmergencyCallController {
 
     private final CallRepository callRepository;
     private final EmergencyRepository emergencyRepository;
+    private final HospitalRepository hospitalRepository;
 
-    public EmergencyCallController (CallRepository callRepository, EmergencyRepository emergencyRepository) {
+    public EmergencyCallController (CallRepository callRepository, EmergencyRepository emergencyRepository
+    ,HospitalRepository hospitalRepository) {
         this.callRepository  = callRepository;
         this.emergencyRepository = emergencyRepository;
+        this.hospitalRepository = hospitalRepository;
     }
     @GetMapping(value = "/call", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Call> getCalls() {
@@ -39,8 +43,16 @@ public class EmergencyCallController {
         return callRepository.save(call);
     }
 
+    @GetMapping(value = "/emergency", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Emergency> getEmergency() {
+        return emergencyRepository.findAll();
 
+    }
+    @GetMapping(value = "/hospitals", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Hospital> getHospitals() {
+        return hospitalRepository.findAll();
 
+    }
     @GetMapping(value = "/nearlyHospitals/", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> findNearHospital () {
         Location locationCall = new Location();
@@ -50,40 +62,5 @@ public class EmergencyCallController {
 
         return Arrays.asList("Hospital Nanterre", "Saint martin Hospital");
     }
-    public  Hospital  getHospitalList(Emergency emergency) {
-        List <Hospital> hospitalList = new ArrayList<Hospital>();
-        Location hospitalLocation1 =
-                new Location(48.93114683117722, 2.361165117035444);
-        Hospital hospital1 = new Hospital();
-        hospital1.setLocation(hospitalLocation1);
-        hospital1.setNombresLitDisponible(3L);
-        hospital1.setName("Casa Nova");
-        hospital1.setDistance(80.2);
-        List<String> specialityList = new ArrayList<String>();
-        specialityList.add("Brulure");
-        specialityList.add("Cardilogie");
-        hospital1.setSpecialities(specialityList);
 
-        specialityList.clear();
-        Location hospitalLocation2 =
-                new Location(48.93622901400626, 2.3769266473219144);
-        Hospital hospital2 = new Hospital();
-        hospital1.setLocation(hospitalLocation1);
-        hospital2.setNombresLitDisponible(3L);
-        hospital2.setName("saint denis");
-        specialityList.add("Anesthésie");
-        specialityList.add("Allergie");
-        hospital2.setDistance(72.2);
-        hospitalList.add(hospital1);
-       Hospital nearHospital =  hospitalList.stream()
-                .min(Comparator.
-                        comparingDouble(h -> Math.abs(h.getDistance() - emergency.getDistance())))
-                .orElseThrow(() -> new NoSuchElementException("No value present"));
-       System.out.println(nearHospital);
-
-        return nearHospital;
-    }
-    private Hospital getNearlyHospital(Emergency emergency) {
-        return null;
-    }
 }

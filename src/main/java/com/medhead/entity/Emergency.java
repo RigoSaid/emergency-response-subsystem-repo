@@ -19,10 +19,7 @@ public class Emergency {
 
     public Emergency() {
     }
-
-    public Emergency(Long id, Patient patients, String speciality) {
-        this.patients = patients;
-    }
+    
 
     @Override
     public String toString() {

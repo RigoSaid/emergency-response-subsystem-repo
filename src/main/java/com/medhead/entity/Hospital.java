@@ -18,7 +18,7 @@ public class Hospital {
     private Long id;
     private String name;
     private Double distance;
-    @OneToOne(fetch = FetchType.LAZY)
+    @Transient
     private Location location;
     private Long nombresLitDisponible;
     @Transient

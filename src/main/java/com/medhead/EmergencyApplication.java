@@ -20,6 +20,7 @@ import java.util.*;
 public class EmergencyApplication {
     @Autowired
     HospitalRepository hospitalRepository;
+
     public static void main(String[] args) {
 
 
@@ -34,19 +35,62 @@ public class EmergencyApplication {
     }
 
     @Bean
-    public CommandLineRunner sampleData(CallRepository repository, EmergencyRepository emergencyRepository) {
+    public CommandLineRunner sampleData(CallRepository repository, EmergencyRepository emergencyRepository
+            , HospitalRepository hospitalRepository) {
         return (args) -> {
             repository.save(new Call(new Date(), "Said"));
             repository.save(new Call(new Date(), "Paul"));
             repository.save(new Call(new Date(), "Justine"));
             Emergency emergency = new Emergency();
+            emergency.setId(2L);
             emergency.setDistance(32.2);
             emergency.setSpeciality("Anesthésie");
             emergencyRepository.save(emergency);
+            // Create Hospitals data
+            List<Hospital> hospitalList = new ArrayList<Hospital>();
+            Location hospitalLocation1 =
+                    new Location(48.93114683117722, 2.361165117035444);
+            Hospital hospital1 = new Hospital();
+            hospital1.setId(1L);
+            hospital1.setLocation(hospitalLocation1);
+            hospital1.setNombresLitDisponible(3L);
+            hospital1.setName("Casa Nova");
+            hospital1.setNombresLitDisponible(0L);
+            hospital1.setDistance(52.2);
+//            List<String> specialityList = new ArrayList<String>();
+//            specialityList.add("Brulure");
+//            specialityList.add("Cardilogie");
+//            specialityList.add("Anesthésie");
+//            hospital1.setSpecialities(specialityList);
+            Hospital hospital2 = new Hospital();
+            Location hospitalLocation2 =
+                    new Location(48.93622901400626, 2.3769266473219144);
+            hospital2.setId(2L);
+
+            hospital2.setLocation(hospitalLocation2);
+            hospital2.setNombresLitDisponible(3L);
+            hospital2.setName("saint denis");
+            hospital2.setNombresLitDisponible(1L);
+            /////////////
+            Location hospitalLocation3 =
+                    new Location(48.93622901400626, 2.3769266473219144);
+            Hospital hospital3 = new Hospital();
+            hospital3.setLocation(hospitalLocation3);
+            hospital3.setNombresLitDisponible(0L);
+            hospital3.setId(3L);
+
+            hospital3.setDistance(42.2);
+            hospitalList.add(hospital3);
+            ///////////////
+            hospitalList.add(hospital1);
+            hospitalRepository.save(hospital1);
+            hospitalRepository.save(hospital2);
+            hospitalRepository.save(hospital3);
         };
     }
-    public static   Hospital  getHospitalList(Emergency emergency) {
-        List <Hospital> hospitalList = new ArrayList<Hospital>();
+
+    public static Hospital getHospitalList(Emergency emergency) {
+        List<Hospital> hospitalList = new ArrayList<Hospital>();
         Location hospitalLocation1 =
                 new Location(48.93114683117722, 2.361165117035444);
         Hospital hospital1 = new Hospital();
@@ -75,7 +119,7 @@ public class EmergencyApplication {
         hospital2.setSpecialities(specialityList);
         hospital2.setDistance(82.2);
         hospitalList.add(hospital2);
-        Map<Double,Hospital> dis = new HashMap<>();
+        Map<Double, Hospital> dis = new HashMap<>();
         specialityList.clear();
 
         Location hospitalLocation3 =
@@ -90,9 +134,9 @@ public class EmergencyApplication {
         hospitalList.add(hospital3);
 
 
-       Hospital nearHospital =  hospitalList.stream().filter(hospital -> hospital.getNombresLitDisponible() > 0L)
+        Hospital nearHospital = hospitalList.stream().filter(hospital -> hospital.getNombresLitDisponible() > 0L)
                 .min(Comparator.
-                        comparingDouble(h -> Math.abs(h.getDistance() - emergency.getDistance()) ))
+                        comparingDouble(h -> Math.abs(h.getDistance() - emergency.getDistance())))
 
                 .orElseThrow(() -> new NoSuchElementException("No value present"));
 
