@@ -51,7 +51,6 @@ class EmergencyCallControllerIntegrationTest {
     @Test
     public void it_should_return_hospitals_() throws Exception {
         Emergency emergency = new Emergency();
-        emergency.setLocation(new Location(120L,152530L)) ;
         mockMvc.perform(MockMvcRequestBuilders.post("/nearlyHospitals")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError())

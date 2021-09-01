@@ -24,7 +24,7 @@ public class EmergencyCallControllerUnitTest {
         emergencyCallController = new EmergencyCallController(callRepository,emergencyRepository);
         Location location = new Location();
         Emergency emergency = new Emergency();
-        List<String> response = emergencyCallController.findNearHospital(location,emergency);
+        List<String> response = emergencyCallController.findNearHospital();
         assertEquals("Hospital Nanterre", response.get(0));
     }
 }

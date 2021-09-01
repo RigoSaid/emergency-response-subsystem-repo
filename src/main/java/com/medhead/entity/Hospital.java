@@ -17,9 +17,24 @@ public class Hospital {
     @Id
     private Long id;
     private String name;
+    private Double distance;
     @OneToOne(fetch = FetchType.LAZY)
     private Location location;
+    private Long nombresLitDisponible;
+    @Transient
+    private List<String> specialities = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Hospital{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", location=" + location +
+                ", nombresLitDisponible=" + nombresLitDisponible +
+                ", specialities=" + specialities +
+                ", distance=" + distance +
+                '}';
+    }
 
     public Hospital() {
 
