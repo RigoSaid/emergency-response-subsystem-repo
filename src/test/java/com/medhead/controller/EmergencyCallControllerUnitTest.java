@@ -32,4 +32,16 @@ public class EmergencyCallControllerUnitTest {
 
         assertEquals("saint denis", response.getName());
     }
+
+    @Test
+    void nearlyHospital_should_be_failed() {
+        EmergencyCallService emergencyCallService = new EmergencyCallService();
+        Emergency emergency = new Emergency();
+        emergency.setId(2L);
+        emergency.setDistance(32.2);
+        emergency.setSpeciality("Anesthésie");
+        Hospital response = emergencyCallService.getHospitalList(emergency);
+
+        assertEquals("saint martin", response.getName());
+    }
 }
